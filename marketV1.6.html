@@ -1,0 +1,64 @@
+<script>
+    let goods = [
+        {
+            name: `apel`,
+            price: 10000,
+            stock: 5,
+            sugarLevel: `Medium`,
+            category: `Fruit`
+        },
+        {
+            name: `French Fries`,
+            price: 15000,
+            stock: 7,
+            expired: 2022,
+            category: `Fast Food`
+        },
+        {
+            name: `pants`,
+            price: 20000,
+            stock: 9,
+            size: `M`,
+            category: `Cloth`
+        },
+        {
+            name: `Iron`,
+            price: 25000,
+            stock: 11,
+            warranty: true,
+            category: `Electronic`
+        }
+    ]
+    let cart = []
+    let totalprice = 0
+
+    class Product {
+        constructor(name, price, stock, cate) {
+            this.name = name,
+                this.price = price,
+                this.stock = stock,
+                this.category = cate
+        }
+    }
+    class Fruit extends product {
+        constructor(name, price, stock, cate, sugar) {
+            super(name, price, stock, cate)
+            this.sugarLevel = sugar
+        }
+    }
+    class FastFood extends product {
+        constructor(name, price, stock, cate, exp) {
+            super(name, price, stock, cate)
+            this.expired = exp
+        }
+    }
+    class Electronic extends product {
+        constructor(name, price, stock, cate, war) {
+            super(name, price, stock, cate,)
+            this.warranty = war
+        }
+    }
+    let fruit1 = new Fruit(`apel`,10000,`5`,`fruit`, `low` )
+    console.log(fruit1)
+
+</script>

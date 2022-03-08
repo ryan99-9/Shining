@@ -1,0 +1,209 @@
+<script>
+    //DataBase
+    let goods = [
+        {
+            name: `apel`,
+            price: 10000,
+            stock: 5,
+            sugarLevel: `Medium`,
+            category: `Fruit`
+        },
+        {
+            name: `French Fries`,
+            price: 15000,
+            stock: 7,
+            expired: 2022,
+            category: `Fast Food`
+        },
+        {
+            name: `pants`,
+            price: 20000,
+            stock: 9,
+            size: `M`,
+            category: `Cloth`
+        },
+        {
+            name: `Iron`,
+            price: 25000,
+            stock: 11,
+            warranty: true,
+            category: `Electronic`
+        }
+    ]
+    let keranjang = []
+    let totalbelanja = 0
+
+    //Daftar Barang
+    class Product {
+        constructor(name, price, stock, cate) {
+            this.name = name,
+                this.price = price,
+                this.stock = stock,
+                this.category = cate
+        }
+    }
+    class Fruit extends Product {
+        constructor(name, price, stock, cate, sugar) {
+            super(name, price, stock, cate)
+            this.sugarLevel = sugar
+        }
+    }
+    class Snack extends Product {
+        constructor(name, price, stock, cate, exp) {
+            super(name, price, stock, cate)
+            this.expired = exp
+        }
+    }
+    class Wearing extends Product {
+        constructor(name, price, stock, cate, size) {
+            super(name, price, stock, cate)
+            this.size = size
+        }
+    }
+    class Electronic extends product {
+        constructor(name, price, stock, cate, war) {
+            super(name, price, stock, cate)
+            this.warranty = war
+        }
+    }
+    //Membuat Fungsi untuk meringkas tampilan list
+    //menampilkan daftar barang 
+    //=> setelah selesai baru membuat funsginya
+    let showall = () => {
+        let list = `Daftar barang di toko Sanjaya: \n`
+        goods.forEach((item, index) => {
+            list += `${index + 1}.`
+            for (let prop in item) {
+                list += `${item[prop]} `
+            }
+            list += `\n`
+        })
+        return list
+    }
+
+    while (true) {
+        let menuUtama = +prompt(`Selamat Datang di Toko Buah Fresh
+        1. Daftar Buah
+        2. Tambah Buah
+        3. Hapus Buah
+        4. Beli Buah
+        5. Exit`)
+
+        if (menuUtama == 1) {
+            alert(list)
+        } else if (menuUtama === 2) {
+            let newData = []
+            while (true) {
+                var name = prompt(`Input nama buah:`)
+                if (!name) {
+                    alert(`Tolong input yang benar`)
+                } else {
+                    newData.push(name)
+                    break
+                }
+            }
+
+            while (true) {
+                let price = +prompt(`Input harga buah:`)
+                if (!price) {
+                    alert(`Tolong input yang benar`)
+                } else {
+                    newData.push(price)
+                    break
+                }
+            }
+
+            while (true) {
+                let stock = +prompt(`Input data stock:`)
+                if (!stock) {
+                    alert(`Tolong input yang benar`)
+                } else {
+                    newData.push(stock)
+                    break
+                }
+            }
+
+            fruits.push(newData)
+            alert(`Data buah ${name} sudah dimasukan ke database`)
+
+        } else if (menuUtama === 3) {
+
+            let list = 'Daftar Buah di Toko Buah Fresh: \n'
+            for (let i = 0; i < fruits.length; i++) {
+                list += `${i + 1}. ${fruits[i][0]} = Rp${fruits[i][1].toLocaleString()}/buah. Stok = ${fruits[1][2]} \n`
+            }
+            list += `Buah nomer berapa yang ingin anda hapus?`
+
+            let hilang = +prompt(list)
+            fruits.splice(hilang - 1, 1)
+
+            alert(`${fruits[hilang - 1][0]} sudah terhapus dari database`)
+
+        } else if (menuUtama === 4) {
+
+            while (true) {
+                //menampilkan list dan meminta memilih buah yang ingin dibeli
+                let list = 'Buah mana yang ingin anda beli: \n'
+                fruits.forEach((item, index) => {
+                    list += `${index + 1}. ${item[0]} = Rp${item[1].toLocaleString()}/buah. Stok = ${item[2]} \n`
+                })
+                list += `masukan kode angka buah`
+
+                let inputbeli = +prompt(list)
+                let buahdibeli = fruits[inputbeli - 1][0]
+
+                //meminta input qty               
+                while (true) {
+                    let inputqty = +prompt(`Berapa buah ${buahdibeli} yang ingin dibeli ?`)
+                    if (inputqty > fruits[inputbeli - 1][2]) {
+                        alert('pesananmu melebihi stok, silahkan tulis ulang')
+                    } else {
+                        alert(`kamu memasukan ${inputqty} ${buahdibeli} ke keranjangmu`)
+
+                        keranjang.push([buahdibeli, fruits[inputbeli - 1][1], inputqty])
+                        totalbelanja += fruits[inputbeli - 1][1] * inputqty
+
+                        let daftar = `Pesanan anda \n`
+                        keranjang.forEach((a, b) => {
+                            daftar += `${b + 1}.${a[0]} <${a[2]}> Rp${a[1].toLocaleString()} \n`
+                        })
+                        daftar += `Total Belanja Rp${totalbelanja.toLocaleString()}`
+                        alert(daftar)
+                        break
+                    }
+                } //penutup while input qty
+                let konfirmasi = confirm(`Apakah mau membeli lagi`)
+                if (!confirm) {
+                    break
+                }
+            } // penutup looping menu no 4
+
+            //input pembayaran
+            let daftar = `Pesanan anda \n`
+            keranjang.forEach((a, b) => {
+                daftar += `${b + 1}.${a[0]} <${a[2]}> Rp${a[1].toLocaleString()} \n`
+            })
+            daftar += `Total Belanja Rp${totalbelanja.toLocaleString()}`
+            alert(daftar)
+            let uang = +prompt(`Masukan jumlah uang`)
+            while (true) {
+                if (uang > totalbelanja) {
+                    alert(`uang kembalian anda Rp${(uang - totalbelanja).toLocaleString()}`)
+                    break
+                } else if (uang < totalbelanja) {
+                    alert(`uang anda kurang Rp ${(totalbelanja - uang).toLocaleString()}. Silahkan masukan lagi`)
+                } else {
+                    alert(`terimakasih sudah berbelanja`)
+                    break
+                }
+            }
+
+        } else if (menuUtama == 5) {
+            alert(`Terima kasih Silakan datang di lain waktu`)
+            break
+        } else {
+            alert(`Menu tidak ada! Tolong input menu dengan benar`)
+        }
+    } //penutup while menu utama
+
+</script>
