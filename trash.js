@@ -43,20 +43,20 @@
 let keranjang = []
 let totalbelanja = 0
 
-// class Product {
-//     constructor(name, price, stock, cate) {
-//         this.name = name,
-//             this.price = price,
-//             this.stock = stock,
-//             this.category = cate
-//     }
-// }
-// class Fruit extends Product {
-//     constructor(name, price, stock, cate, sugar) {
-//         super(name, price, stock, cate)
-//         this.sugarLevel = sugar
-//     }
-// }
+class Product {
+    constructor(name, price, stock, cate) {
+        this.name = name,
+            this.price = price,
+            this.stock = stock,
+            this.category = cate
+    }
+}
+class Fruit extends Product {
+    constructor(name, price, stock, cate, sugar) {
+        super(name, price, stock, cate)
+        this.sugarLevel = sugar
+    }
+}
 // class Snack extends Product {
 //     constructor(name, price, stock, cate, exp) {
 //         super(name, price, stock, cate)
@@ -85,4 +85,8 @@ goods.forEach((item,index) => {
      } 
      list += `\n`
 })
-console.log(list)
+// console.log(list)
+
+let buah = new Fruit (`pisang`,20000,5,`Fruit`,`Low`)
+goods.push(buah)
+console.log()
